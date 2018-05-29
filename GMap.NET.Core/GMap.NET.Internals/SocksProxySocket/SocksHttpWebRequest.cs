@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GMap.NET.Internals
+﻿namespace GMap.NET.Internals
 {
+    using Org.Mentalis.Network.ProxySocket; // http://www.mentalis.org/soft/class.qpx?id=9
     using System;
     using System.Collections.Specialized;
     using System.IO;
     using System.Net;
     using System.Net.Sockets;
     using System.Text;
-    using Org.Mentalis.Network.ProxySocket; // http://www.mentalis.org/soft/class.qpx?id=9
 
     /// <summary>
     /// http://ditrans.blogspot.com/2009/03/making-witty-work-with-socks-proxy.html
@@ -27,10 +23,10 @@ namespace GMap.NET.Internals
         private byte[] _requestContentBuffer;
 
         // darn MS for making everything internal (yeah, I'm talking about you, System.net.KnownHttpVerb)
-        static readonly StringCollection validHttpVerbs =
+        private static readonly StringCollection validHttpVerbs =
             new StringCollection { "GET", "HEAD", "POST", "PUT", "DELETE", "TRACE", "OPTIONS" };
 
-        #endregion
+        #endregion Member Variables
 
         #region Constructor
 
@@ -39,7 +35,7 @@ namespace GMap.NET.Internals
             _requestUri = requestUri;
         }
 
-        #endregion
+        #endregion Constructor
 
         #region WebRequest Members
 
@@ -156,7 +152,7 @@ namespace GMap.NET.Internals
             return new MemoryStream(_requestContentBuffer);
         }
 
-        #endregion
+        #endregion WebRequest Members
 
         #region Methods
 
@@ -301,7 +297,7 @@ namespace GMap.NET.Internals
             return ipAddress;
         }
 
-        #endregion
+        #endregion Methods
 
         #region Properties
 
@@ -317,17 +313,15 @@ namespace GMap.NET.Internals
             }
         }
 
-        #endregion
-
+        #endregion Properties
     }
 
     internal class SocksHttpWebResponse : WebResponse
     {
-
         #region Member Variables
 
-        WebHeaderCollection _httpResponseHeaders;
-        MemoryStream data;
+        private WebHeaderCollection _httpResponseHeaders;
+        private MemoryStream data;
 
         public override long ContentLength
         {
@@ -341,7 +335,7 @@ namespace GMap.NET.Internals
             set;
         }
 
-        #endregion
+        #endregion Member Variables
 
         #region Constructors
 
@@ -360,25 +354,25 @@ namespace GMap.NET.Internals
                 switch (headerEntry[0])
                 {
                     case "Content-Type":
-                    {
-                        ContentType = headerEntry[1];
-                    }
-                    break;
+                        {
+                            ContentType = headerEntry[1];
+                        }
+                        break;
 
                     case "Content-Length":
-                    {
-                        long r = 0;
-                        if(long.TryParse(headerEntry[1], out r))
                         {
-                          ContentLength = r;
+                            long r = 0;
+                            if (long.TryParse(headerEntry[1], out r))
+                            {
+                                ContentLength = r;
+                            }
                         }
-                    }
-                    break;
+                        break;
                 }
             }
         }
 
-        #endregion
+        #endregion Constructors
 
         #region WebResponse Members
 
@@ -408,6 +402,6 @@ namespace GMap.NET.Internals
             }
         }
 
-        #endregion
+        #endregion WebResponse Members
     }
 }

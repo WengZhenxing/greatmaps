@@ -1,5 +1,5 @@
 /*
-    Copyright © 2002, The KPD-Team
+    Copyright ?2002, The KPD-Team
     All rights reserved.
     http://www.mentalis.org/
 
@@ -8,11 +8,11 @@
   are met:
 
     - Redistributions of source code must retain the above copyright
-       notice, this list of conditions and the following disclaimer. 
+       notice, this list of conditions and the following disclaimer.
 
     - Neither the name of the KPD-Team, nor the names of its contributors
        may be used to endorse or promote products derived from this
-       software without specific prior written permission. 
+       software without specific prior written permission.
 
   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
   "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,33 +28,37 @@
   OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-using System;
-using System.Net;
 using System.Net.Sockets;
 
-namespace Org.Mentalis.Network.ProxySocket.Authentication {
-	/// <summary>
-	/// This class implements the 'No Authentication' scheme.
-	/// </summary>
-	internal sealed class AuthNone : AuthMethod {
-		/// <summary>
-		/// Initializes an AuthNone instance.
-		/// </summary>
-		/// <param name="server">The socket connection with the proxy server.</param>
-		public AuthNone(Socket server) : base(server) {}
-		/// <summary>
-		/// Authenticates the user.
-		/// </summary>
-		public override void Authenticate() {
-			return; // Do Nothing
-		}
-		/// <summary>
-		/// Authenticates the user asynchronously.
-		/// </summary>
-		/// <param name="callback">The method to call when the authentication is complete.</param>
-		/// <remarks>This method immediately calls the callback method.</remarks>
-		public override void BeginAuthenticate(HandShakeComplete callback) {
-			callback(null);
-		}
-	}
+namespace Org.Mentalis.Network.ProxySocket.Authentication
+{
+    /// <summary>
+    /// This class implements the 'No Authentication' scheme.
+    /// </summary>
+    internal sealed class AuthNone : AuthMethod
+    {
+        /// <summary>
+        /// Initializes an AuthNone instance.
+        /// </summary>
+        /// <param name="server">The socket connection with the proxy server.</param>
+        public AuthNone(Socket server) : base(server) { }
+
+        /// <summary>
+        /// Authenticates the user.
+        /// </summary>
+        public override void Authenticate()
+        {
+            return; // Do Nothing
+        }
+
+        /// <summary>
+        /// Authenticates the user asynchronously.
+        /// </summary>
+        /// <param name="callback">The method to call when the authentication is complete.</param>
+        /// <remarks>This method immediately calls the callback method.</remarks>
+        public override void BeginAuthenticate(HandShakeComplete callback)
+        {
+            callback(null);
+        }
+    }
 }
